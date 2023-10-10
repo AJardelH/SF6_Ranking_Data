@@ -1,7 +1,7 @@
 import pandas as pd
 
 #read CSV into dataframe
-df = pd.read_csv('SF_data_rank_36.csv',encoding='UTF-8')
+df = pd.read_csv('csv_file_here.csv',encoding='UTF-8')
 
 #rename columns to simplify
 df = df.rename(columns=
