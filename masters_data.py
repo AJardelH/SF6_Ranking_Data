@@ -13,10 +13,10 @@ df = df.rename(columns=
 
 #attempt to drop dead rated 1500 rated accounts
 #inherant risk some active 1500 rated accounts will be lost
-df.drop(df.loc[df['master_rating']==1500].index, inplace=True)
+df.drop(df.loc[df['rating']==1500].index, inplace=True)
 
 #sort by master rating descending & keep 'main' character
-df = df.sort_values("master_rating", ascending=False)
+df = df.sort_values("rating", ascending=False)
 df = df.drop_duplicates(subset='player',keep='first')
 
 #print(df)
