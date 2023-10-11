@@ -51,6 +51,8 @@ def get_sf6_ranks():
             script_tag = soup.find('script',{'id':'__NEXT_DATA__'})
             if script_tag is not None:
                 json_blob = json.loads(script_tag.get_text())
+                #JSON is slightly different for /buckler/ranking/master which orders by master rating and not by league points
+                #'master_rating' is just called 'rating' in this data
                 if rank == 36:
                     page_data = json_blob['props']['pageProps']['master_rating_ranking']['ranking_fighter_list']
                     df = pd.concat([df, pd.json_normalize(page_data)],ignore_index=True)
@@ -74,15 +76,16 @@ def get_sf6_ranks():
                         ]]
                 print(f'page {page_no}/{max_pages} of league {rank} complete')
                 page_no += 1
+                     
+            #export csv #optional rank variable input
+            df.to_csv(f'csv_name_here_{rank}.csv',index=False)
             
-            #df.to_csv(f'SF_data_rank_{rank}.csv',index=False)
-
-            #test csv
-            df.to_csv(f'test_{rank}.csv',index=False)
-            #wait 2 seconds per page reduce requests/s
+            
+            #wait x per page reduce requests/s if wanted
             time.sleep(2)
-            
-        print(df)
+        
+        #print df to check
+        #print(df)
 
         #clear out dataframe for next rank reset page to 1 to loop through next ranks
         df = pd.DataFrame()
