@@ -23,7 +23,7 @@ The scripts above were used to gather a representative data set for each rank by
 Some general observations from this dataset:
 
 - US and Japan have a similar number of distinct players: 66,224 vs 65,157 respectively. **note** *this is only as accurate as the assumption players put their actual country*
-- JP has the highest average league points followed by A.K.I and Rashid. It can be inferred that JP is a strong character that tends towards players that are more skilled. A.K.I. and Rashid are paid DLC characters and the assumption here is that those who pay for DLC are more likely to be regular players and thus have a higher than average skill level. 
+- JP has the highest average league points followed by A.K.I and Rashid. It can be inferred that JP is a strong character preferred by higher than average skilled players. This assumption is in line with the general consensus of JP being one of the stronger characters in the game (see the many tier lists created by the community) . A.K.I. and Rashid are paid DLC characters and the assumption here is that those who pay for DLC are more likely to be regular players and thus have a higher than average skill level. 
 
 ![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/0fff3ba8-0701-4adf-927f-18c3d20aa81d)
 *Example image of Tableau worksheet showing character popularity distrubution*
