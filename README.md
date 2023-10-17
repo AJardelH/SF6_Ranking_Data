@@ -32,4 +32,4 @@ Some general observations from this dataset:
 
 ## Moving Forward
 
-Plans to periodicaly get Masters rank data to add to the dataset. This will hopefully reduce the number of *'dead' accounts* which are calibrated at 1500 Rating and not touched again as there will be more data points for each Players rating. Only those with several weeks worth of 1500 rating will be removed. 
+Plans to periodicaly get Masters rank data to add to the dataset. This will hopefully reduce the number of *'dead' accounts* which are calibrated at 1500 Rating and not touched again as there will be more data points for each Players rating. Only those with several weeks worth of 1500 rating will be removed. This will involve adding a date to the data to categorise it and likely shift the storage of the dataset from a csv to a locally hosted postgreSQL databse. 
