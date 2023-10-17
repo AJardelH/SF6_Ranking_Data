@@ -26,7 +26,7 @@ Some general observations from this dataset:
 - JP has the highest average league points followed by A.K.I and Rashid. It can be inferred that JP is a strong character that tends towards players that are more skilled. A.K.I. and Rashid are paid DLC characters and the assumption here is that those who pay for DLC are more likely to be regular players and thus have a higher than average skill level. 
 
 ![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/0fff3ba8-0701-4adf-927f-18c3d20aa81d)
-*Example image of Tableau worksheet showing all data*
+*Example image of Tableau worksheet showing character popularity distrubution*
 
 ## [Look at the data on Tableau](https://public.tableau.com/authoring/StreetFighter6CharacterData/StreetFighter6CharacterPopularity)
 
