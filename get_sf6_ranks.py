@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
-#import math
+import math
 import time
 from cookies_headers import cookies, headers
 
@@ -13,7 +13,7 @@ def get_sf6_ranks():
 
     #league rank parameter for iterating
     #range is 1 through 37 for Rookie 1 through Master (rookie1 = 1, master = 36)
-    league_rank = range(1,37)
+    league_rank = range(36,37)
 
     #create empty dataframe
     df = pd.DataFrame()
@@ -40,8 +40,19 @@ def get_sf6_ranks():
 
             #uncomment below and import math to get all players for rank
             #gets total player count of rank from page, divides by 20 and rounds up for max number of pages per rank
-            #player_count = int(soup.find('span',{'class':'ranking_ranking_now__last__TghLM'}).text.replace('/ ',''))
-            #max_pages = math.ceil(player_count/20)
+            try:
+                player_count = int(soup.find('span',{'class':'ranking_ranking_now__last__TghLM'}).text.replace('/ ',''))
+                max_pages = math.ceil(player_count/20)
+            except KeyError as ke:
+                    print('Key Error- reason "%s"' % str(ke))
+                    #dump incomplete csv with page no 
+                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
+                    break
+            except AttributeError as ae:
+                    print('Key Error- reason "%s"' % str(ae))
+                    #dump incomplete csv with page no 
+                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
+                    break
             
             #checks on players / pages count
             #print(player_count)
@@ -50,36 +61,48 @@ def get_sf6_ranks():
             #find script tag containing the JSON data we need
             script_tag = soup.find('script',{'id':'__NEXT_DATA__'})
             if script_tag is not None:
-                json_blob = json.loads(script_tag.get_text())
-                #JSON is slightly different for /buckler/ranking/master which orders by master rating and not by league points
-                #'master_rating' is just called 'rating' in this data
-                if rank == 36:
-                    page_data = json_blob['props']['pageProps']['master_rating_ranking']['ranking_fighter_list']
-                    df = pd.concat([df, pd.json_normalize(page_data)],ignore_index=True)
-                    df = df.loc[:,['fighter_banner_info.personal_info.fighter_id',
-                                'fighter_banner_info.personal_info.platform_name',
-                                'character_name',
-                                'league_point',
-                                'league_rank',
-                                'rating',
-                                'fighter_banner_info.home_name'
-                        ]]
-                else:
-                    page_data = json_blob['props']['pageProps']['league_point_ranking']['ranking_fighter_list']
-                    df = pd.concat([df, pd.json_normalize(page_data)],ignore_index=True)
-                    df = df.loc[:,['fighter_banner_info.personal_info.fighter_id',
-                                'fighter_banner_info.personal_info.platform_name',
-                                'character_name',
-                                'league_point',
-                                'league_rank',
-                                'fighter_banner_info.home_name'
-                        ]]
-                print(f'page {page_no}/{max_pages} of league {rank} complete')
-                page_no += 1
-                     
+                try:
+                    json_blob = json.loads(script_tag.get_text())
+                    #JSON is slightly different for /buckler/ranking/master which orders by master rating and not by league points
+                    #'master_rating' is just called 'rating' in this data
+                    if rank == 36:
+                        page_data = json_blob['props']['pageProps']['master_rating_ranking']['ranking_fighter_list']
+                        df = pd.concat([df, pd.json_normalize(page_data)],ignore_index=True)
+                        df = df.loc[:,['fighter_banner_info.personal_info.fighter_id',
+                                    'fighter_banner_info.personal_info.platform_name',
+                                    'character_name',
+                                    'league_point',
+                                    'league_rank',
+                                    'rating',
+                                    'fighter_banner_info.home_name'
+                            ]]
+                                                
+                    else:
+                        page_data = json_blob['props']['pageProps']['league_point_ranking']['ranking_fighter_list']
+                        df = pd.concat([df, pd.json_normalize(page_data)],ignore_index=True)
+                        df = df.loc[:,['fighter_banner_info.personal_info.fighter_id',
+                                    'fighter_banner_info.personal_info.platform_name',
+                                    'character_name',
+                                    'league_point',
+                                    'league_rank',
+                                    'fighter_banner_info.home_name'
+                            ]]
+                        
+                    print(f'page {page_no}/{max_pages} of league {rank} complete')
+                    page_no += 1
+                except KeyError as ke:
+                    print('Key Error- reason "%s"' % str(ke))
+                    #dump incomplete csv with page no 
+                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
+                    break
+                except AttributeError as ae:
+                    print('Key Error- reason "%s"' % str(ae))
+                    #dump incomplete csv with page no 
+                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
+                    break
+                          
             #export csv #optional rank variable input
-            df.to_csv(f'csv_name_here_{rank}.csv',index=False)
-            
+            df.to_csv(f'csv_name_here_{rank}.csv',index=False) 
             
             #wait x per page reduce requests/s if wanted
             time.sleep(2)
