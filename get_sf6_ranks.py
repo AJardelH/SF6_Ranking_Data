@@ -5,6 +5,7 @@ import pandas as pd
 import math
 import time
 from cookies_headers import cookies, headers
+import traceback
 
 def get_sf6_ranks():
 
@@ -43,16 +44,13 @@ def get_sf6_ranks():
             try:
                 player_count = int(soup.find('span',{'class':'ranking_ranking_now__last__TghLM'}).text.replace('/ ',''))
                 max_pages = math.ceil(player_count/20)
-            except KeyError as ke:
-                    print('Key Error- reason "%s"' % str(ke))
+            except Exception:
+                    traceback.print_exc()
                     #dump incomplete csv with page no 
+                    print(f'dumping incomplete .csv')
                     df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
                     break
-            except AttributeError as ae:
-                    print('Key Error- reason "%s"' % str(ae))
-                    #dump incomplete csv with page no 
-                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
-                    break
+            
             
             #checks on players / pages count
             #print(player_count)
@@ -90,16 +88,13 @@ def get_sf6_ranks():
                         
                     print(f'page {page_no}/{max_pages} of league {rank} complete')
                     page_no += 1
-                except KeyError as ke:
-                    print('Key Error- reason "%s"' % str(ke))
+                except Exception:
+                    traceback.print_exc()
                     #dump incomplete csv with page no 
+                    print(f'dumping incomplete .csv')
                     df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
                     break
-                except AttributeError as ae:
-                    print('Key Error- reason "%s"' % str(ae))
-                    #dump incomplete csv with page no 
-                    df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
-                    break
+                
                           
             #export csv #optional rank variable input
             df.to_csv(f'csv_name_here_{rank}.csv',index=False) 
