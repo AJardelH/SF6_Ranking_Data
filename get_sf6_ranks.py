@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup
 import json
 import pandas as pd
 import math
-import time
-from cookies_headers import cookies, headers
+import datetime
 import traceback
+from cookies_headers import cookies, headers
+
 
 def get_sf6_ranks():
 
@@ -14,13 +15,13 @@ def get_sf6_ranks():
 
     #league rank parameter for iterating
     #range is 1 through 37 for Rookie 1 through Master (rookie1 = 1, master = 36)
-    league_rank = range(34,37)
+    league_rank = range(36,37)
 
     #create empty dataframe
     df = pd.DataFrame()
 
     #set number of max pages here if not using player count
-    max_pages = 2
+    max_pages = 200
 
     url = 'https://www.streetfighter.com/6/buckler/ranking/league'
 
@@ -47,7 +48,7 @@ def get_sf6_ranks():
             except Exception:
                     traceback.print_exc()
                     #dump incomplete csv with page no 
-                    print(f'dumping incomplete .csv')
+                    print(f'dumping incomplete failed on {page_no}.csv')
                     df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
                     page_no = page_no + 1
                     continue
@@ -76,6 +77,7 @@ def get_sf6_ranks():
                                     'rating',
                                     'fighter_banner_info.home_name'
                             ]]
+                        
                                                 
                     else:
                         page_data = json_blob['props']['pageProps']['league_point_ranking']['ranking_fighter_list']
@@ -88,8 +90,10 @@ def get_sf6_ranks():
                                     'fighter_banner_info.home_name'
                             ]]
                         
+                        
                     print(f'page {page_no}/{max_pages} of league {rank} complete')
                     page_no += 1
+
                 except Exception:
                     traceback.print_exc()
                     #dump incomplete csv with page no 
@@ -100,10 +104,11 @@ def get_sf6_ranks():
                 
                           
             #export csv #optional rank variable input
+            df['date'] = pd.Timestamp.today().strftime('%Y-%m-%d')
             df.to_csv(f'csv_name_here_{rank}.csv',index=False) 
             
             #wait x per page reduce requests/s if wanted
-            time.sleep(2)
+            #time.sleep(2)
         
         #print df to check
         #print(df)
