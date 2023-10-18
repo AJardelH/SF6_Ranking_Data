@@ -14,13 +14,13 @@ def get_sf6_ranks():
 
     #league rank parameter for iterating
     #range is 1 through 37 for Rookie 1 through Master (rookie1 = 1, master = 36)
-    league_rank = range(36,37)
+    league_rank = range(34,37)
 
     #create empty dataframe
     df = pd.DataFrame()
 
     #set number of max pages here if not using player count
-    max_pages = 200
+    max_pages = 2
 
     url = 'https://www.streetfighter.com/6/buckler/ranking/league'
 
@@ -49,7 +49,9 @@ def get_sf6_ranks():
                     #dump incomplete csv with page no 
                     print(f'dumping incomplete .csv')
                     df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
-                    break
+                    page_no = page_no + 1
+                    continue
+                   
             
             
             #checks on players / pages count
@@ -93,7 +95,8 @@ def get_sf6_ranks():
                     #dump incomplete csv with page no 
                     print(f'dumping incomplete .csv')
                     df.to_csv(f'csv_name_here_{rank}_incomplete_{page_no}.csv',index=False)
-                    break
+                    page_no = page_no + 1
+                    continue
                 
                           
             #export csv #optional rank variable input
