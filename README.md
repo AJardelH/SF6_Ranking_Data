@@ -52,7 +52,7 @@ We loop through and store these results in another table `matches` after some ot
 Due to the way the data is structured it became apparent that it was not going to be possible to accurately determine character win rates from this point. 
 For example there may be 100 instances of Ryu winning as player1 in 150 mirror matches. When this was put in a matrix of row= p1 and col= p2 it would result in a 66% win for p1 when really it's a 50% win rate due to it being a mirror match.
 
-To work around this we transform the data one last time by loading the query from `matches` into one dataframe, duplicating that dataframe and inverting the columns names so that p1 is p2 and p1_result is p2_result. These two dataframes are joined together and grouped and summed together to give us our head to head wins and losses for each character pair, regardless of if they were P1 or P2. 
+To work around this we use `head2head_transform.py` to transform the data one last time by loading the query from `matches` into one dataframe, duplicating that dataframe and inverting the columns names so that p1 is p2 and p1_result is p2_result. These two dataframes are joined together and grouped and summed together to give us our head to head wins and losses for each character pair, regardless of if they were P1 or P2. 
 
 This is then finally exported to a .csv for loading into Tableau. 
 
