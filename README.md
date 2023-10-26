@@ -56,7 +56,8 @@ To work around this we use `head2head_transform.py` to transform the data one la
 
 This is then finally exported to a .csv for loading into Tableau and generating visualisation. 
 
-![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/74535701-9c2e-4b4a-9c44-a7a42811d195)
+![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/b103863a-e68b-422d-a2f7-f2ebe4a66c1c)
+
 
 
 
