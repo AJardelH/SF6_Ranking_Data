@@ -34,7 +34,7 @@ Over time we can then query the postgres db and pass each player into a request 
 From the request we get the following relevant data
 - `'replay_id'` we can use this as a unique identifier to avoid counting matches twice
 - `'player1_info.player.short_id'` gives us player 1 unique id 
-- `'player1_info.master_rating'` gives us player 1's current Master Rating (at time of the match - need to check?)
+- `'player1_info.master_rating'` gives us player 1's current Master Rating (at time of the match)
 - `'player1_info.character_name'` gives us which character they played
 - `'player1_info.round_results'` #gives us a list of round results. This can be a 0 through 8~ which corresponds to an icon depending on how the round was won (example CA, OD, V, SA). Most importantly 0 is always L. We can use this to determine overall loser.
 - `'player2_info.player.short_id',` the rest is as above but for player 2
@@ -56,7 +56,8 @@ To work around this we use `head2head_transform.py` to transform the data one la
 
 This is then finally exported to a .csv for loading into Tableau and generating visualisation. 
 
-![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/9d62950e-ec65-48db-b042-80d31ff9da78)
+![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/74535701-9c2e-4b4a-9c44-a7a42811d195)
+
 
 
 
