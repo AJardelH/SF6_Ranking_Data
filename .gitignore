@@ -158,6 +158,7 @@ cython_debug/
 *.png
 sf6_json_example.txt
 cookies_headers.py
+create_tables.py
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
