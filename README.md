@@ -38,15 +38,15 @@ Over time we can then query the postgres db and pass each player into a request 
 ` url = f'https://www.streetfighter.com/6/buckler/profile/{short_id}/battlelog/rank?page={page}'`
 
 From the request we get the following relevant data
-`'replay_id' #we can use this as a unique identifier to avoid counting matches twice
-'player1_info.player.short_id' #gives us player 1 unique id 
-'player1_info.master_rating' #gives us player 1's current Master Rating (at time of the match - need to check?)
-'player1_info.character_name' #gives us which character they played
-'player1_info.round_results' #gives us a list of round results. This can be a 0 through 8~ which corresponds to an icon depending on how the round was won (example CA, OD, V, SA). Most importantly 0 is always L. We can use this to determine overall loser.
-'player2_info.player.short_id', #the rest is as above but for player 2
-'player2_info.master_rating',
-'player2_info.character_name',
-'player2_info.round_results'`
+- `'replay_id'` we can use this as a unique identifier to avoid counting matches twice
+- `'player1_info.player.short_id'` gives us player 1 unique id 
+- `'player1_info.master_rating'` gives us player 1's current Master Rating (at time of the match - need to check?)
+- `'player1_info.character_name'` gives us which character they played
+- `'player1_info.round_results'` #gives us a list of round results. This can be a 0 through 8~ which corresponds to an icon depending on how the round was won (example CA, OD, V, SA). Most importantly 0 is always L. We can use this to determine overall loser.
+- `'player2_info.player.short_id',` the rest is as above but for player 2
+- `'player2_info.master_rating',`
+- `'player2_info.character_name',`
+- `'player2_info.round_results'`
 
 As we're not overly interested in how the match was won and only the overall winner we use the function `check_loss` which checks the list for two 0's or two losses to determine the winner and loser and drop the superfluous columns containing the lists.
 `def check_loss(round_results):
