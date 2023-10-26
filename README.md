@@ -54,9 +54,10 @@ For example there may be 100 instances of Ryu winning as player1 in 150 mirror m
 
 To work around this we use `head2head_transform.py` to transform the data one last time by loading the query from `matches` into one dataframe, duplicating that dataframe and inverting the columns names so that p1 is p2 and p1_result is p2_result. These two dataframes are joined together and grouped and summed together to give us our head to head wins and losses for each character pair, regardless of if they were P1 or P2. 
 
-This is then finally exported to a .csv for loading into Tableau. 
+This is then finally exported to a .csv for loading into Tableau and generating visualisation. 
 
-![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/e3800a83-9f9d-417f-b302-563c2437b626)
+![image](https://github.com/AJardelH/SF6_Ranking_Data/assets/113073854/9d62950e-ec65-48db-b042-80d31ff9da78)
+
 
 
 
