@@ -8,7 +8,7 @@ import sqlalchemy as db
 from sqlalchemy import create_engine, text
 from requests.exceptions import RequestException
 
-engine = create_engine('postgresql://postgres:admin@localhost:5432/streetfighter6')
+engine = create_engine('postgresql://postgres:admin@127.0.0.1:5432/streetfighter6')
 
 def check_loss(round_results):
     return round_results.count(0) >= 2
@@ -16,8 +16,7 @@ def check_loss(round_results):
 def get_match_data():
     with engine.begin() as conn:
         query = text('''SELECT id, player_id FROM players
-                      LIMIT 500
-                      OFFSET 3500;''')
+                     OFFSET 6069;''')
         
         short_id_df = pd.read_sql_query(query, conn)
         max_pages = 10
@@ -45,7 +44,7 @@ def get_match_data():
                 if next_disabled_elements:
                     print(f'No new next page. Stopped at id {id} (short_id: {short_id} page no. {page})')
                     page = 1  # Reset page no
-                    time.sleep(2)
+                    time.sleep(3)
                     break  # Move to the next short_id
 
                 script_tag = soup.find('script', {"id": "__NEXT_DATA__"})

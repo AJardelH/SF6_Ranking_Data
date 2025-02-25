@@ -10,12 +10,12 @@ from cookies_headers import cookies, headers
 import time
 
 def get_short_id():
-    engine = create_engine('postgresql://postgres:admin@localhost:5432/streetfighter6')
+    engine = create_engine('postgresql://postgres:admin@127.0.0.1:5432/streetfighter6')
 
     url = 'https://www.streetfighter.com/6/buckler/ranking/master'
 
     # Set page no param to 1
-    page_no = 501
+    page_no = 1
 
     # Create an empty dataframe
     df = pd.DataFrame()
@@ -71,14 +71,14 @@ def get_short_id():
                 break
 
         # Wait x seconds per page to reduce requests per second if wanted
-        #time.sleep(5)
+        time.sleep(5)
 
     # Print df to check
 
     df.drop_duplicates(subset='fighter_banner_info.personal_info.short_id', keep='first', inplace=True)
     df.rename(columns={'fighter_banner_info.personal_info.short_id': 'player_id'}, inplace=True)
     # print(df.dtypes)
-    # df.to_csv('test.csv')
+    df.to_csv('test2.csv')
     print(df)
     df.to_sql('players', engine, if_exists='append', index=False)
 
